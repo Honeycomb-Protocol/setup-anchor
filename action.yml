@@ -7,21 +7,25 @@ inputs:
   node-version:
     description: 'Version of node.js to use'
     required: false
-    default: '20.16.0' # LTS
+    default: '20.11.1'
   solana-cli-version:
     description: 'Version of Solana CLI to use'
     required: false
-    default: '1.18.18' 
+    default: '1.18.12' 
   anchor-version:
     description: 'Version of Anchor to use'
     required: false
-    default: '0.30.1' # latest
+    default: '0.29.0'
+  registry-url:
+    description: 'Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN.'
+
 runs:
   using: 'composite'
   steps:
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
+        registry-url: ${{ inputs.registry-url }}
     - name: Cache Solana CLI tools
       uses: actions/cache@v4
       with:
